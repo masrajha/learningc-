@@ -8,7 +8,7 @@
             "type": "shell",
             "command": "g++",
             "args":[
-                "-g","main.cpp","mylib.cpp"
+                "-g","main.cpp"
             ],
             "group": {
                 "kind": "build",
