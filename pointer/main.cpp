@@ -36,10 +36,27 @@ int main()
 
     int A[]={5,4,2,1};
     int B[]={6,2,1};
-
+    int na = sizeof(A)/sizeof(int);
+    int nb = sizeof(B)/sizeof(int);
     int *pArray[]={A,B};
-    cout<<*(*pArray+1)<<endl;
-    cout<<*(*(pArray+1)+2)<<endl;
+    int i=0;
+    int *ptr;
+    cout<<"-----------ARRAY A-------------"<<endl;
+    while(i<na){
+        
+        cout<<"A["<<i<<"]"<<" ->  *(*pArray+"<<i<<") = "<<*(*pArray+i)<<endl;
+        i++;
+    }
+    cout<<"------------------------"<<endl;
+    i=0;
+    cout<<"----------ARRAY B--------------"<<endl;
+    while(i<nb){
+        
+        cout<<"B["<<i<<"]"<<" ->  *(*(pArray+1)+"<<i<<") = "<<*(*(pArray+1)+i)<<endl;
+        i++;
+    }
+    cout<<"------------------------"<<endl;
+    // cout<<(*pArray+i)<<" -> "<<*(*(pArray+1)+2)<<endl;
     return 0;
 }
 double average(int *A, int n){
