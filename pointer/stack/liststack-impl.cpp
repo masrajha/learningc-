@@ -6,13 +6,23 @@ class Element
 
   public:
     Element *next;
+    Element()
+    {
+        this->item = '\0';
+    }
+    Element(char item)
+    {
+        this->item = item;
+    }
     void setItem(int i)
     {
         this->item = i;
     }
     char getItem()
     {
-        return this->item;
+        if (this->item > -1)
+            return this->item;
+        return '\0';
     }
 };
 
@@ -58,28 +68,32 @@ class MyStack
             cout << "Stack Penuh";
         }
     }
-    Element pop()
+    Element* pop()
     {
         Element *e = new Element();
+
         if (isEmpty())
         {
             cout << "Stack kosong";
-             return *e;
+            e=NULL;
+            return e;
         }
         else
         {
-            e = this->top;
-            this->top = this->top->next;
-            return *e;
+            Element *tmp = this->top;
+            e = tmp;
+            this->top = tmp->next;
+            delete (tmp);
+            return e;
         }
     }
-    Element getTop()
+    Element* getTop()
     {
         Element *e = NULL;
         if (isEmpty())
-            return *e;
+            return e;
         e = this->top;
-        return *e;
+        return e;
     }
 };
 int main()
@@ -88,18 +102,16 @@ int main()
     // e->setItem(5);
     // cout<<e->getItem();
     MyStack ms = MyStack();
+    ms.push(new Element('5'));
+    ms.push(new Element('+'));
+    ms.push(new Element('6'));
+    ms.push(new Element('5'));
     Element *e = new Element();
-    e->setItem('5');
-    ms.push(e);
-    e = new Element();
-    e->setItem('+');
-    ms.push(e);
-    e = new Element();
-    e->setItem('2');
-    ms.push(e);
-    cout << ms.pop().getItem() << endl;
-    cout << ms.pop().getItem() << endl;
-    cout << ms.pop().getItem() << endl;
-    cout << ms.pop().getItem() << endl;
+    e = ms.pop();
+    do
+    {
+        cout << e->getItem() << endl;
+        e=ms.pop();
+    }while (e != NULL);
     return 0;
 }
