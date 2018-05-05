@@ -5,7 +5,7 @@ class Element
     char item;
 
   public:
-    Element *next=NULL;
+    Element *next = NULL;
     Element()
     {
         this->item = '\0';
@@ -68,14 +68,14 @@ class MyStack
             cout << "Stack Penuh";
         }
     }
-    Element* pop()
+    Element *pop()
     {
         Element *e = new Element();
 
         if (isEmpty())
         {
             cout << "Stack kosong";
-            e=NULL;
+            e = NULL;
             return e;
         }
         else
@@ -87,7 +87,7 @@ class MyStack
             return e;
         }
     }
-    Element* getTop()
+    Element *getTop()
     {
         Element *e = NULL;
         if (isEmpty())
@@ -108,10 +108,10 @@ int main()
     ms.push(new Element('5'));
     Element *e = new Element();
     e = ms.pop();
-    do
+    while (e != NULL)
     {
         cout << e->getItem() << endl;
-        e=ms.pop();
-    }while (e != NULL);
+        e = ms.pop();
+    } 
     return 0;
 }
