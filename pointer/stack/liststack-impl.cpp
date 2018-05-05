@@ -5,7 +5,7 @@ class Element
     char item;
 
   public:
-    Element *next;
+    Element *next=NULL;
     Element()
     {
         this->item = '\0';
