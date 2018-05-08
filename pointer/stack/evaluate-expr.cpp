@@ -1,3 +1,6 @@
+/* 
+ compile using c++11. ex: g++ -std=c++11 evaluate-expr.cpp
+*/
 #include <iostream>
 #include <stdio.h>
 #include <algorithm> // std::find
