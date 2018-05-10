@@ -28,7 +28,7 @@ int main()
     string legal{""};
     legal.append("0123456789");
     legal.append("+/*\%");
-    legal.append("-()");
+    legal.append("-() ");
     // puts(legal.c_str());
     char *cstr = new char[legal.length() + 1];
     strcpy(cstr, legal.c_str());
@@ -63,6 +63,8 @@ int main()
 
     for (auto n : expr)
     {
+        if (n == ' ')
+            continue;
         if (n == minus)
             if (buff == "")
             {
