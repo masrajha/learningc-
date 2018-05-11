@@ -32,7 +32,7 @@ int main()
     // puts(legal.c_str());
     char *cstr = new char[legal.length() + 1];
     strcpy(cstr, legal.c_str());
-    cout << "Masukan ekspresi aritmatika, lalu tekan ENTER \n";
+    cout << "Masukan ekspresi aritmatika, lalu tekan ENTER\n";
     getline(cin, expr);
 
     for (int i = 0; i < expr.length(); i++)
