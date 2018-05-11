@@ -21,12 +21,12 @@ bool in_array(char mychar[], int n, char x)
 int main()
 {
     string expr;
-    char operand[] = "0123456789";
+    char operand[] = "0123456789.";
     char operat[] = "+/*\%";
     char minus = '-';
     char kurung[] = "()";
     string legal{""};
-    legal.append("0123456789");
+    legal.append("0123456789.");
     legal.append("+/*\%");
     legal.append("-() ");
     // puts(legal.c_str());
