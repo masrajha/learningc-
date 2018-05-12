@@ -110,7 +110,11 @@ vector<string> exprtoinfix(string expr)
                     infix.push_back(opr);
                 }
                 else
-                    buff += n;
+                {
+                    //buff += n;
+                    infix.push_back("-1");
+                    infix.push_back("*");
+                }
             }
             else
             {
@@ -172,9 +176,15 @@ vector<string> exprtoinfix(string expr)
     }
     if (buff != "")
         infix.push_back(buff);
-    if (parenthesis > 0) {
+    if (!is_number(infix.back()) && infix.back() != ")")
+    {
+        cerr << "Error: Lat expression must be operand or )";
+        exit(-1);
+    }
+    if (parenthesis > 0)
+    {
         cerr << "Error: add right parenthesis ')' in your expression";
-                exit(-1);
+        exit(-1);
     }
     return infix;
 }
