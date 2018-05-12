@@ -2,7 +2,7 @@
  compile using c++11. ex: g++ -std=c++11 evaluate-expr.cpp
 */
 #include <iostream>
-#include <stdio.h>
+#include <string>
 #include <algorithm> // std::find
 #include <vector>    // std::vector
 #include <string.h>
@@ -17,10 +17,16 @@ bool in_array(char mychar[], int n, char x)
     else
         return false;
 }
-
-int main()
+bool is_number(string str)
 {
-    string expr;
+    char *cstr = new char[str.length() + 1];
+    char *e;
+    strcpy(cstr, str.c_str());
+    double number = strtod(cstr, &e);
+    return (*e == '\0');
+}
+vector<string> exprtoinfix(string expr)
+{
     char operand[] = "0123456789.";
     char operat[] = "+/*\%";
     char minus = '-';
@@ -32,21 +38,19 @@ int main()
     // puts(legal.c_str());
     char *cstr = new char[legal.length() + 1];
     strcpy(cstr, legal.c_str());
-    cout << "Masukan ekspresi aritmatika, lalu tekan ENTER\n";
-    getline(cin, expr);
 
     for (int i = 0; i < expr.length(); i++)
     {
         if (!in_array(cstr, strlen(cstr), expr.at(i)))
         {
             cerr << "Error expression in " << expr.at(i);
-            return -1;
+            exit(-1);
         }
     }
     if (in_array(operat, strlen(operat), expr.at(0)))
     {
         cerr << "Error: First character of expression is operator " << expr.at(0);
-        return -1;
+        exit(-1);
     }
 
     // infix[0] = expr.at(0);
@@ -95,6 +99,8 @@ int main()
             else
             {
                 infix.push_back(buff);
+                if (n == '(' && is_number(buff))
+                    infix.push_back("*");
                 buff = "";
                 string opr{""};
                 opr += n;
@@ -102,7 +108,13 @@ int main()
             }
 
         if (in_array(operand, strlen(operand), n))
+        {
+            if (!infix.empty())
+                if (buff == "" && infix.back() == ")")
+                    infix.push_back("*");
+
             buff += n;
+        }
         else if (in_array(operat, strlen(operat), n) && buff != "")
         {
             infix.push_back(buff);
@@ -120,8 +132,18 @@ int main()
     }
     if (buff != "")
         infix.push_back(buff);
+    return infix;
+}
 
+int main()
+{
+    string expr;
+    vector<string> infix;
+    cout << "Masukan ekspresi aritmatika, lalu tekan ENTER\n";
+    getline(cin, expr);
+    infix = exprtoinfix(expr);
     for (auto n : infix)
         cout << n << " ";
+    // cout << is_number("2.");
     return 0;
 }
