@@ -60,9 +60,14 @@ vector<string> exprtoinfix(string expr)
         if (n == ' ')
             continue;
         if (n == minus)
+        {
             if (buff == "")
             {
-                if (infix.back() == ")")
+                // if (!infix.empty() && infix.back() == ")")
+                if (infix.empty()){
+                    buff += n;
+                }
+                else if (infix.back() == ")")
                 {
                     string opr{""};
                     opr += n;
@@ -79,7 +84,8 @@ vector<string> exprtoinfix(string expr)
                 opr += n;
                 infix.push_back(opr);
             }
-        if (in_array(kurung, strlen(kurung), n))
+        }
+        else if (in_array(kurung, strlen(kurung), n))
             if (buff == "")
             {
                 string opr{""};
@@ -97,7 +103,7 @@ vector<string> exprtoinfix(string expr)
                 infix.push_back(opr);
             }
 
-        if (in_array(operand, strlen(operand), n))
+        else if (in_array(operand, strlen(operand), n))
         {
             if (!infix.empty())
                 if (buff == "" && infix.back() == ")")
