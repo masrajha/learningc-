@@ -52,16 +52,6 @@ vector<string> exprtoinfix(string expr)
         cerr << "Error: First character of expression is operator " << expr.at(0);
         exit(-1);
     }
-
-    // infix[0] = expr.at(0);
-    // for (int i = 1; i < expr.length(); i++)
-    // {
-    //     // cout << expr.at(i) << endl;
-    //     if (in_array(operand, strlen(operand), expr.at(i)))
-    //     {
-    //         cout << expr.at(i) << " operand" << endl;
-    //         infix += expr.at(i);
-    //     }
     string buff{""};
     vector<string> infix;
 
