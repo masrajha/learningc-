@@ -1,5 +1,10 @@
-/* 
- compile using c++11. ex: g++ -std=c++11 evaluate-expr.cpp
+/**
+    evaluate-expr.cpp
+    Purpose: Evaluate and convert expression string to infix form expression.
+    @author Didik Kurniawan
+    @version 0.1 5/12/2018
+
+    compile using c++11. ex: g++ -std=c++11 evaluate-expr.cpp
 */
 #include <iostream>
 #include <string>
@@ -8,6 +13,14 @@
 #include <string.h>
 
 using namespace std;
+/**
+    checking is a character is within in a string
+
+    @param array character
+    @param length array
+    @param character
+    @return true if a character within an array
+*/
 bool in_array(char mychar[], int n, char x)
 {
     char *p;
@@ -17,6 +30,12 @@ bool in_array(char mychar[], int n, char x)
     else
         return false;
 }
+/**
+    checking is a string is a number
+
+    @param array character as string
+    @return true if string is number
+*/
 bool is_number(string str)
 {
     char *cstr = new char[str.length() + 1];
@@ -25,6 +44,17 @@ bool is_number(string str)
     double number = strtod(cstr, &e);
     return (*e == '\0');
 }
+/**
+    convert string epression to infix formexpression
+
+    @param array character as string
+    @return string vector each operator and operand 
+
+    ex input: -200(14-76)+((27-122)2*-19/55-2229)9
+    vector output print by space in between:
+    -200 * ( 14 - 76 ) + ( ( 27 - 122 ) * 2 * -19 / 55 - 2229 ) * 9
+
+*/
 vector<string> exprtoinfix(string expr)
 {
     char operand[] = "0123456789.";
