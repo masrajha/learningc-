@@ -38,14 +38,14 @@ bool in_array(char mychar[], int n, char x)
 */
 bool is_number(string str)
 {
-    char *cstr = new char[str.length() + 1];
+    char *legal_str = new char[str.length() + 1];
     char *e;
-    strcpy(cstr, str.c_str());
-    double number = strtod(cstr, &e);
+    strcpy(legal_str, str.c_str());
+    double number = strtod(legal_str, &e);
     return (*e == '\0');
 }
 /**
-    convert string epression to infix formexpression
+    convert string epression to infix form expression
 
     @param array character as string
     @return string vector each operator and operand 
@@ -61,40 +61,46 @@ vector<string> exprtoinfix(string expr)
     char operat[] = "+/*\%";
     char minus = '-';
     char kurung[] = "()";
+    int parenthesis = 0;
     string legal{""};
     legal.append("0123456789.");
     legal.append("+/*\%");
     legal.append("-() ");
     // puts(legal.c_str());
-    char *cstr = new char[legal.length() + 1];
-    strcpy(cstr, legal.c_str());
-
-    for (int i = 0; i < expr.length(); i++)
-    {
-        if (!in_array(cstr, strlen(cstr), expr.at(i)))
-        {
-            cerr << "Error expression in " << expr.at(i);
-            exit(-1);
-        }
-    }
-    if (in_array(operat, strlen(operat), expr.at(0)))
-    {
-        cerr << "Error: First character of expression is operator " << expr.at(0);
-        exit(-1);
-    }
+    char *legal_str = new char[legal.length() + 1];
+    strcpy(legal_str, legal.c_str());
     string buff{""};
     vector<string> infix;
-
+    bool first = true;
     for (auto n : expr)
     {
         if (n == ' ')
             continue;
+        if (first)
+        {
+
+            if (n == '+')
+                continue;
+            first = false;
+            if (in_array(operat, strlen(operat), n))
+            {
+                cerr << "Error: First character of expression is operator " << n;
+                exit(-1);
+            }
+        }
+        if (!in_array(legal_str, strlen(legal_str), n))
+        {
+            cerr << "Error expression in " << n;
+            exit(-1);
+        }
+
         if (n == minus)
         {
             if (buff == "")
             {
                 // if (!infix.empty() && infix.back() == ")")
-                if (infix.empty()){
+                if (infix.empty())
+                {
                     buff += n;
                 }
                 else if (infix.back() == ")")
@@ -116,6 +122,7 @@ vector<string> exprtoinfix(string expr)
             }
         }
         else if (in_array(kurung, strlen(kurung), n))
+        {
             if (buff == "")
             {
                 string opr{""};
@@ -132,6 +139,13 @@ vector<string> exprtoinfix(string expr)
                 opr += n;
                 infix.push_back(opr);
             }
+            parenthesis += (n == '(' ? 1 : -1);
+            if (parenthesis < 0)
+            {
+                cerr << "Error expression in " << n;
+                exit(-1);
+            }
+        }
 
         else if (in_array(operand, strlen(operand), n))
         {
@@ -158,6 +172,10 @@ vector<string> exprtoinfix(string expr)
     }
     if (buff != "")
         infix.push_back(buff);
+    if (parenthesis > 0) {
+        cerr << "Error: add right parenthesis ')' in your expression";
+                exit(-1);
+    }
     return infix;
 }
 
